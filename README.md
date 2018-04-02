@@ -8,8 +8,6 @@ $ gradle flywayClean && gradle flywayMigrate -i
 
 
 
-
-
 ```shell
 $ docker run \
   --name postgres \
@@ -24,7 +22,7 @@ $ docker run \
   
 $ docker run -p 6379:6379 --name redis -d --rm redis:3.2
 
-
+# run redis-cli
 $ docker run -it --link redis --rm redis:3.2 redis-cli -h redis -p 6379
 ```
 
@@ -42,15 +40,3 @@ $ HGETALL hash-key
 get slow::boot
 del slow::boot
 ```
-
-
-
-
-
-```
---spring.profiles.active=mysql
-
-# properties name
-application-mysql.properties
-```
-

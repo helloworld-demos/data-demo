@@ -15,17 +15,30 @@ public class CoffeeService {
 
     @Cacheable("coffeePrice")
     // redis key will be "coffeePrice:${name}"
-    public float findPriceBy(String name) {
-        try {
-            log.info("A really time expensive operation to get price for coffee: {}. It will take about 5 seconds", name);
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public float findPriceBy_springCache(String name) {
+        simulatedLongService();
 
         Coffee coffee = coffeeRepository.findByName(name)
                                         .orElseThrow(() -> new RuntimeException(String.format("Coffee %s is not found", name)));
         return coffee.getPrice();
+    }
+
+    // TODO implement this, what about two threads are calling this method at the same time, cache twice?
+    public float findPriceBy_redisTemplate(String name) {
+        //RedisTemplate
+
+        Coffee coffee = coffeeRepository.findByName(name)
+                                        .orElseThrow(() -> new RuntimeException(String.format("Coffee %s is not found", name)));
+        return coffee.getPrice();
+    }
+
+    private void simulatedLongService() {
+        try {
+            log.info("A really time expensive operation is happening. It will take about 5 seconds");
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Coffee save(Coffee coffee) {

@@ -10,12 +10,12 @@ public class CoffeeController {
     @Autowired
     CoffeeService coffeeService;
 
-    @RequestMapping("/{coffeeName}/price")
-    public float greeting(@PathVariable(value = "coffeeName") String coffeeName) {
-        return coffeeService.findPriceBy(coffeeName);
+    @GetMapping("/{coffeeName}/price")
+    public float greeting(@PathVariable("coffeeName") String coffeeName) {
+        return coffeeService.findPriceBy_springCache(coffeeName);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Coffee> save(@RequestBody Coffee coffee) {
         Coffee savedCoffee = coffeeService.save(coffee);
 

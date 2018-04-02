@@ -5,12 +5,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application.test.properties")
+@ActiveProfiles(profiles = "test")
+// @TestPropertySource(locations = "classpath:application.test.properties")
+// no need to do the above, use convention to indicate we are using application-test.properties
 public class DataApplicationTests {
     @Autowired
     CoffeeRepository coffeeRepository;
